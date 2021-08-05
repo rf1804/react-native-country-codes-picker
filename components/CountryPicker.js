@@ -6,7 +6,7 @@ import {CountryButton} from "./CountryButton";
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
-export default function CountryPicker({show, pickerButtonOnPress, inputPlaceholder, searchMessage, inputTextStyle, searchTextStyle, listTextStyle, lang = 'en'}) {
+export default function CountryPicker({show, pickerButtonOnPress, inputPlaceholder, searchMessage, inputTextStyle, searchTextStyle, listTextStyle, hideCallingCode, lang = 'en'}) {
     // ToDo need to add prop types
     const [animationDriver] = React.useState(new Animated.Value(0));
     const [searchValue, setSearchValue] = React.useState('');
@@ -128,6 +128,7 @@ export default function CountryPicker({show, pickerButtonOnPress, inputPlacehold
                                 item={item}
                                 itemStyle={listTextStyle}
                                 name={checkName}
+                                hideCallingCode={hideCallingCode}
                                 onPress={() => {
                                     pickerButtonOnPress(item)
                                     closeFocus()
