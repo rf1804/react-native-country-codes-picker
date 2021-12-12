@@ -28,7 +28,7 @@ export default function CountryPicker({show, pickerButtonOnPress, inputPlacehold
         if (!isNaN(searchValue))
             return countryCodes.filter(country => country?.dial_code.includes(searchValue))
 
-        return countryCodes.filter(country => country?.name[lang || 'en'].includes(searchValue))
+        return countryCodes.filter(country => country?.name[lang || 'en'].match(new RegExp(searchValue, "i")))
     },[searchValue]);
 
     const modalPosition = animationDriver.interpolate({
