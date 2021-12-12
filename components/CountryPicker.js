@@ -1,12 +1,12 @@
 import React from 'react';
-import { FlatList, TextInput, View, Text, Animated, Dimensions } from 'react-native';
+import { FlatList, TextInput, View, Text, Animated, Dimensions, TouchableOpacity } from 'react-native';
 import {countryCodes} from "../constants/countryCodes";
 import {CountryButton} from "./CountryButton";
 
 const height = Dimensions.get('window').height;
 const width = Dimensions.get('window').width;
 
-export default function CountryPicker({show, pickerButtonOnPress, inputPlaceholder, searchMessage, inputTextStyle, searchTextStyle, listTextStyle, hideCallingCode, lang = 'en'}) {
+export default function CountryPicker({show, pickerButtonOnPress, inputPlaceholder, searchMessage, inputTextStyle, searchTextStyle, listTextStyle, hideCallingCode, lang = 'en', cancelTextStyle, cancelText, onCancel}) {
     // ToDo need to add prop types
     const [animationDriver] = React.useState(new Animated.Value(0));
     const [searchValue, setSearchValue] = React.useState('');
@@ -62,7 +62,16 @@ export default function CountryPicker({show, pickerButtonOnPress, inputPlacehold
                     ]
                 }
             ]}
+        ><View style={styles.modalCancel}>
+        <TouchableOpacity onPress={()=> {
+            onCancel()
+            closeFocus()
+            closeModal()
+          }}
         >
+          <Text style={cancelTextStyle?cancelTextStyle:{fontSize: 16}}>{cancelText?cancelText:'Cancel'}</Text>
+        </TouchableOpacity>
+      </View>
             <View
                 style={{
                     flexDirection: 'row',
@@ -172,6 +181,11 @@ const styles = {
         shadowOpacity: 0.37,
         shadowRadius: 7.49,
         elevation: 12,
+    },
+    modalCancel: {
+      paddingVertical: 8,
+      paddingHorizontal: 8,
+      alignItems: "flex-end"
     },
     searchBar: {
         backgroundColor: '#f5f5f5',
